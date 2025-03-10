@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Cloud, MapPin } from 'lucide-react';
 import { WeatherCard } from './components/WeatherCard';
 import { HealthAdviceCard } from './components/HealthAdvice';
 import { beninCities } from './data/cities';
 import type { WeatherData } from './types';
+import { motion } from 'framer-motion'; // Import de Framer Motion
 
 function App() {
   const [weatherData, setWeatherData] = useState<Map<string, WeatherData>>(new Map());
@@ -75,8 +76,16 @@ function App() {
             const weather = weatherData.get(city.name);
             if (!weather) return null;
             
+            const randomDelay = Math.random() * 1;
+
             return (
-              <div key={city.name} className="space-y-4">
+              <motion.div 
+                key={city.name} 
+                className="space-y-4" 
+                initial={{ opacity: 0, y: 20 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 3, delay: randomDelay }}
+              >
                 <div className="bg-white rounded-xl shadow-lg p-4">
                   <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                     {city.displayName}
@@ -84,7 +93,7 @@ function App() {
                   <WeatherCard weather={weather} />
                   <HealthAdviceCard weather={weather} />
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </main>

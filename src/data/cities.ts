@@ -1,3 +1,5 @@
+import { City } from "../types";
+
 export const beninCities: City[] = [
   { name: 'Cotonou', displayName: 'Cotonou' },
   { name: 'Porto-Novo', displayName: 'Porto-Novo' },
